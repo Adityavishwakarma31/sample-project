@@ -1,4 +1,4 @@
-Flask + Postgres Docker Project
+#Flask + Postgres Docker Project
 
 I took this Flask + Postgres app and ran it using Docker on an EC2 server.
 
