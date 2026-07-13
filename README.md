@@ -34,6 +34,18 @@ db – runs a Postgres container, mapped to port 5432
 
 I already set the DB environment variables inside the Dockerfile, so I didn't repeat them in the compose file. It still works fine because Compose picks up whatever is baked into the image.
 
+DB_HOST=db works because Docker Compose lets both containers talk to each other using their service name.
+
+About the network
+
+I also added a custom Docker network (my-network) in the compose file so both containers can talk to each other on it.
+
+
+Both web1 and db are connected to my-network.
+The network itself is defined once at the bottom of the compose file, at the same level as services: — not inside it. This tripped me up at first, since if you indent it wrong (put it inside services:), Compose throws an error like services.networks additional properties 'my-network' not allowed.
+I could have skipped this entirely — Compose creates a default network automatically if you don't specify one. But I added a custom network so I have a named network I can recognize and reuse if needed.
+I already set the DB environment variables inside the Dockerfile, so I didn't repeat them in the compose file. It still works fine because Compose picks up whatever is baked into the image.
+
 ## Environment Variables
 
 | Variable      | Value         |
